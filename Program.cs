@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections;
+using System.Dynamic;
+using System.Security.Cryptography.X509Certificates;
 
 
-namespace ProjetoFinalPOOII
+namespace JogoDeCartasUno
 {
     class Program
     {
         static void Main(string[] args)
         {
-
-            Baralho teste = new Baralho();
+            Jogo jogo = new Jogo();
             
 
-            //foreach (var carta in baralho)
-            //{
-            //    Console.WriteLine($"Cor:\t{2}\nValor:\t{1}");
-            //    Console.WriteLine();
-            //}
+            // foreach (var carta in baralho)
+            // {
+            //     System.Console.WriteLine($"Cor:\t{carta.Cor}\nValor:\t{carta.Valor}");
+            //     System.Console.WriteLine();
+            // }
         }
     }
 }

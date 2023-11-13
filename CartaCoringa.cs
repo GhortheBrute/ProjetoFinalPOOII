@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
-namespace ProjetoFinalPOOII
+namespace JogoDeCartasUno
 {
-    internal class CartaCoringa : Carta
+    public class CartaCoringa : Cartas
     {
-        public CartaCoringa(Cores cor): base(cor , -5){ }
+        public CartaCoringa(Cores cor) : base (cor,  -1){}
+
+        
     }
 }

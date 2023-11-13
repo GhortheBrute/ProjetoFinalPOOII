@@ -1,100 +1,79 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
+using System.Collections;
 
-namespace ProjetoFinalPOOII
+namespace JogoDeCartasUno
 {
     public class Baralho
     {
-        public List<Carta> cartas { get; set; }
+        public List<Cartas> baralho { get; set; }
         public Baralho()
         {
-            cartas = new List<Carta>();
+            baralho = new List<Cartas>();
             IniciaBaralho();
             EmbaralhaBaralho();
-            ImprimeBaralho();
+            //ImprimeBaralho();
         }
         public void IniciaBaralho()
         {
-            for (byte i = 0; i < 10; i++)
+            Cores[] colorido = (Cores[]) Enum.GetValues(typeof(Cores));
+            foreach (Cores cor in colorido)
             {
-                cartas.Add(new Carta(Cores.Vermelho, i));
-            }
-            for (byte i = 0; i < 10; i++)
-            {
-                cartas.Add(new Carta(Cores.Amarelo, i));
-            }
-            for (byte i = 0; i < 10; i++)
-            {
-                cartas.Add(new Carta(Cores.Azul, i));
-            }
-            for (byte i = 0; i < 10; i++)
-            {
-                cartas.Add(new Carta(Cores.Verde, i));
-            }
-            cartas.Add(new CartaBloqueio(Cores.Vermelho));
-            cartas.Add(new CartaBloqueio(Cores.Vermelho));
-            cartas.Add(new CartaBloqueio(Cores.Verde));
-            cartas.Add(new CartaBloqueio(Cores.Verde));
-            cartas.Add(new CartaBloqueio(Cores.Azul));
-            cartas.Add(new CartaBloqueio(Cores.Azul));
-            cartas.Add(new CartaBloqueio(Cores.Amarelo));
-            cartas.Add(new CartaBloqueio(Cores.Amarelo));
+                for (int j = 0; j < 2; j++)
+                {
+                    for (byte i = 0; i < 10; i++)
+                    {
+                        baralho.Add(new Cartas(cor, i));
+                    }
+                }
+                    
+                baralho.Add(new CartaBloqueio(cor));
+                baralho.Add(new CartaBloqueio(cor));
 
-            cartas.Add(new CartaComprarDois(Cores.Vermelho));
-            cartas.Add(new CartaComprarDois(Cores.Vermelho));
-            cartas.Add(new CartaComprarDois(Cores.Verde));
-            cartas.Add(new CartaComprarDois(Cores.Verde));
-            cartas.Add(new CartaComprarDois(Cores.Azul));
-            cartas.Add(new CartaComprarDois(Cores.Azul));
-            cartas.Add(new CartaComprarDois(Cores.Amarelo));
-            cartas.Add(new CartaComprarDois(Cores.Amarelo));
+                baralho.Add(new CartaComprarDois(cor));
+                baralho.Add(new CartaComprarDois(cor));
 
-            cartas.Add(new CartaComprarQuatro(Cores.Vermelho));
-            cartas.Add(new CartaComprarQuatro(Cores.Verde));
-            cartas.Add(new CartaComprarQuatro(Cores.Azul));
-            cartas.Add(new CartaComprarQuatro(Cores.Amarelo));
+                baralho.Add(new CartaComprarQuatro(cor));
+                
+                baralho.Add(new CartaCoringa(cor));
 
-            cartas.Add(new CartaInverter(Cores.Vermelho));
-            cartas.Add(new CartaInverter(Cores.Vermelho));
-            cartas.Add(new CartaInverter(Cores.Verde));
-            cartas.Add(new CartaInverter(Cores.Verde));
-            cartas.Add(new CartaInverter(Cores.Azul));
-            cartas.Add(new CartaInverter(Cores.Azul));
-            cartas.Add(new CartaInverter(Cores.Amarelo));
-            cartas.Add(new CartaInverter(Cores.Amarelo));
-
-            cartas.Add(new CartaCoringa(Cores.Vermelho));
-            cartas.Add(new CartaCoringa(Cores.Verde));
-            cartas.Add(new CartaCoringa(Cores.Azul));
-            cartas.Add(new CartaCoringa(Cores.Amarelo));
+                baralho.Add(new CartaInverter(cor));
+                baralho.Add(new CartaInverter(cor));
+            }
         }
         public void EmbaralhaBaralho()
         {
-            //Random rng = new Random();
-            //cartas.OrderBy(a => Guid.NewGuid());
-            Random rng = new Random();
-            Carta embaralhaCarta;
-            for (int n = (cartas.Count - 1); n > 1; n--)
-            {
-                int k = rng.Next(n + 1);
-                embaralhaCarta = cartas[k];
-                cartas[k] = cartas[n];
-                cartas[n] = embaralhaCarta;
-
-            }
+            Random random = new Random();
+             
+            for(int n = baralho.Count-1; n > 1; n--)
+            {  
+                int k = random.Next(n + 1);
+                Cartas embaralhaCarta = baralho[n];
+                
+                baralho[k] = baralho[n];
+                baralho[n] = embaralhaCarta;
+                
+            }  
         }
         public void ImprimeBaralho()
         {
-            foreach (Carta carta in cartas)
+            foreach (Cartas carta in baralho)
             {
-                Console.WriteLine($"Cor:\t{carta.Cor}.\nValor:\t{carta.Valor}");
+                Console.WriteLine($"Cor:\t{carta.Cor}\nValor:\t{carta.Valor}\n");
             }
         }
+        public bool TemCarta()
+        {
+            return baralho.Count > 0;
+        }
+        public Cartas PegarCarta()
+        {
+            Random random = new Random();
+            int posicao = random.Next(0, baralho.Count-1);
+            Cartas cartaNova = baralho[posicao];
+            baralho.Remove(cartaNova);
 
-
-
+            return cartaNova;
+        }
     }
+
 }

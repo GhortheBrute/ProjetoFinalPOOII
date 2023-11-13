@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
-namespace ProjetoFinalPOOII
+namespace JogoDeCartasUno
 {
-    public class CartaInverter : Carta
+    public class CartaInverter : Cartas
     {
-        public CartaInverter(Cores cor) : base(cor, -3) { }
+        public CartaInverter(Cores cor) : base (cor,  -1){}
 
-
+        public override bool Combinacao(Cartas carta)
+        {
+            return carta is CartaInverter || carta.Cor == this.Cor;
+        }
+        public override void Acao(Jogo jogo)
+        {
+            jogo.InverterOrdem();
+        }
     }
 }
